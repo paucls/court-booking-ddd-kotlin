@@ -12,20 +12,23 @@ The business goal is to sell tenant subscription plans to organizations: sport c
 - **Members** can create a court booking, update booking time, update booking court, cancel a booking, confirm a booking using its member card.
 
 ### Subdomains:
-**Booking Scheduling** is the core domain we’ll design it using DDD. Some of its domain rules are:
+**Booking Scheduling** is the core domain we’ll design it using DDD. Some of its requirements are:
 - A Court can not have multiple bookings for same day and time.
 - A Member can not have multiple bookings that overlap in time.
+- Booking can only be confirmed by the member that created it.
+- The minimum amount of time that a court can be booked is 30 minutes.
 - Member is notified via email after booking a court.
 - When a booking elapses without getting confirmed by a member, system notifies member.
 
-**Billing** subdomain.
-- Invoice is generated on Booking confirmation.
+**Billing** sub-domain.
+Some of its requirements are:
+- Send Invoice to Member automatically when when the Booking is confirmed.
 - A cancellation fee is applied when a Member cancels a Booking.
 
-**Membership** subdomain.
+**Membership** sub-domain.
 For the purpose of this sample application it is a simple CRUD of Members.
 
-**Facilities** subdomain.
+**Facilities** sub-domain.
 For the purpose of this sample application it is a simple CRUD of Locations and Courts.
 
 # References
