@@ -7,6 +7,7 @@ import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 import java.time.LocalDate
 import java.time.LocalTime
+import kotlin.test.assertFailsWith
 
 private const val SCHEDULE_ID = "schedule-id"
 private const val LOCATION_ID = "location-id"
@@ -46,6 +47,15 @@ class ScheduleTest : Spek({
         schedule.confirmBooking(BOOKING_ID, MEMBER_ID)
 
         assertThat(schedule.bookings.first().isConfirmed).isTrue()
+    }
+
+    it("can not confirm booking of another member") {
+        val schedule = Schedule(SCHEDULE_ID, LOCATION_ID, LocalDate.now())
+        schedule.addBooking(BOOKING_ID, "another-member-id", COURT_ID, LocalTime.of(10, 0), LocalTime.of(10, 30))
+
+        assertFailsWith<ScheduleExceptions.BookingBelongsToAnotherMember> {
+            schedule.confirmBooking(BOOKING_ID, MEMBER_ID)
+        }
     }
 
 })

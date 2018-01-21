@@ -11,6 +11,9 @@ class Booking(
         private set
 
     fun confirm(memberId: String) {
+        if (this.memberId != memberId) {
+            throw ScheduleExceptions.BookingBelongsToAnotherMember()
+        }
         isConfirmed = true
     }
 }
