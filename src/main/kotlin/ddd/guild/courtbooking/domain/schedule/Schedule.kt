@@ -14,7 +14,13 @@ class Schedule(
 ) : DomainEntity {
     val bookings = mutableListOf<Booking>()
 
-    fun addBooking(bookingId: String, memberId: String, startTime: LocalTime, endTime: LocalTime) {
-        bookings.add(Booking(bookingId, memberId))
+    fun addBooking(bookingId: String, memberId: String, courtId: String, startTime: LocalTime, endTime: LocalTime) {
+        bookings.add(Booking(bookingId, memberId, courtId))
+    }
+
+    fun confirmBooking(bookingId: String, memberId: String) {
+        bookings
+                .find { it.id == bookingId }
+                ?.confirm(memberId)
     }
 }
