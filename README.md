@@ -22,14 +22,14 @@ The business goal is to sell tenant subscription plans to organizations: sport c
 
 **Billing** sub-domain.
 Some of its requirements are:
-- Send Invoice to Member automatically when when the Booking is confirmed.
+- Send Invoice to Member automatically when the Booking is confirmed.
 - A cancellation fee is applied when a Member cancels a Booking.
 
 **Membership** sub-domain.
-For the purpose of this sample application it is a simple CRUD of Members.
+For the purpose of this sample application, it is a simple CRUD of Members.
 
 **Facilities** sub-domain.
-For the purpose of this sample application it is a simple CRUD of Locations and Courts.
+For the purpose of this sample application, it is a simple CRUD of Locations and Courts.
 
 # References
 Docs and articles used to implement this project:
