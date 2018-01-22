@@ -15,7 +15,9 @@ class Schedule(
     val bookings = mutableListOf<Booking>()
 
     fun addBooking(bookingId: String, memberId: String, courtId: String, startTime: LocalTime, endTime: LocalTime) {
-        bookings.add(Booking(bookingId, memberId, courtId))
+        val timeSlot = TimeSlot(startTime, endTime)
+
+        bookings.add(Booking(bookingId, memberId, courtId, timeSlot))
     }
 
     fun confirmBooking(bookingId: String, memberId: String) {

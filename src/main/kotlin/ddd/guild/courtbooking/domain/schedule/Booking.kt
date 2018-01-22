@@ -5,7 +5,8 @@ import ddd.guild.courtbooking.domain.DomainEntity
 class Booking(
         val id: String,
         val memberId: String,
-        val courtId: String
+        val courtId: String,
+        val timeSlot: TimeSlot
 ) : DomainEntity {
     var isConfirmed = false
         private set

@@ -58,4 +58,12 @@ class ScheduleTest : Spek({
         }
     }
 
+    it("can not add a booking which duration is less than 30 minutes") {
+        val schedule = Schedule(SCHEDULE_ID, LOCATION_ID, LocalDate.now())
+
+        assertFailsWith<ScheduleExceptions.InvalidDuration> {
+            schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 0), LocalTime.of(10, 29))
+        }
+    }
+
 })
