@@ -66,4 +66,13 @@ class ScheduleTest : Spek({
         }
     }
 
+    it("can not add a new booking that overlaps in time with an existing one") {
+        val schedule = Schedule(SCHEDULE_ID, LOCATION_ID, LocalDate.now())
+        schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 0), LocalTime.of(11, 0))
+
+        assertFailsWith<ScheduleExceptions.BookingTimeConflict> {
+            schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 30), LocalTime.of(11, 0))
+        }
+    }
+
 })

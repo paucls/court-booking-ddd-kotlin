@@ -17,7 +17,16 @@ class Schedule(
     fun addBooking(bookingId: String, memberId: String, courtId: String, startTime: LocalTime, endTime: LocalTime) {
         val timeSlot = TimeSlot(startTime, endTime)
 
+        validateTimeDoNotConflict(timeSlot)
+
         bookings.add(Booking(bookingId, memberId, courtId, timeSlot))
+    }
+
+    private fun validateTimeDoNotConflict(timeSlot: TimeSlot) {
+        val overlaps = bookings.any {
+            it.timeSlot.overlapsWith(timeSlot)
+        }
+        if (overlaps) throw ScheduleExceptions.BookingTimeConflict()
     }
 
     fun confirmBooking(bookingId: String, memberId: String) {
