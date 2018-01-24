@@ -18,4 +18,9 @@ class TimeSlot(
         if (startTime > endTime) throw ScheduleExceptions.InvalidTimeInterval()
         if (this.duration < minValidDuration) throw ScheduleExceptions.InvalidDuration()
     }
+
+    fun overlapsWith(other: TimeSlot): Boolean {
+        return !(this.endTime <= other.startTime ||
+                this.startTime >= other.endTime)
+    }
 }
