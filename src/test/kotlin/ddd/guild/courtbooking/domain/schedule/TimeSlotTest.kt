@@ -20,9 +20,9 @@ class TimeSlotTest : Spek({
             }
         }
 
-        it("duration can not be less than 30 minutes") {
+        it("duration can not be less than 40 minutes") {
             assertFailsWith<ScheduleExceptions.InvalidDuration> {
-                TimeSlot(LocalTime.of(10, 0), LocalTime.of(10, 15))
+                TimeSlot(LocalTime.of(10, 0), LocalTime.of(10, 39))
             }
         }
 
@@ -31,19 +31,19 @@ class TimeSlotTest : Spek({
     describe("overlapsWith") {
 
         it("should return true if the two time slots overlap") {
-            val tenToHalfTenSlot = TimeSlot(LocalTime.of(10, 0), LocalTime.of(10, 30))
-            val halfTenToElevenSlot = TimeSlot(LocalTime.of(10, 30), LocalTime.of(11, 0))
-            val tenToElevenSlot = TimeSlot(LocalTime.of(10, 0), LocalTime.of(11, 0))
+            val tenToTenFortySlot = TimeSlot(LocalTime.of(10, 0), LocalTime.of(10, 40))
+            val tenFortyToElevenTwentySlot = TimeSlot(LocalTime.of(10, 40), LocalTime.of(11, 20))
+            val tenToElevenTwentySlot = TimeSlot(LocalTime.of(10, 0), LocalTime.of(11, 20))
 
-            assertThat(tenToHalfTenSlot.overlapsWith(tenToElevenSlot)).isTrue()
-            assertThat(tenToElevenSlot.overlapsWith(tenToHalfTenSlot)).isTrue()
-            assertThat(halfTenToElevenSlot.overlapsWith(tenToElevenSlot)).isTrue()
-            assertThat(tenToElevenSlot.overlapsWith(halfTenToElevenSlot)).isTrue()
+            assertThat(tenToTenFortySlot.overlapsWith(tenToElevenTwentySlot)).isTrue()
+            assertThat(tenToElevenTwentySlot.overlapsWith(tenToTenFortySlot)).isTrue()
+            assertThat(tenFortyToElevenTwentySlot.overlapsWith(tenToElevenTwentySlot)).isTrue()
+            assertThat(tenToElevenTwentySlot.overlapsWith(tenFortyToElevenTwentySlot)).isTrue()
         }
 
         it("should return false if the two time slots do not overlap") {
-            val tenToElevenSlot = TimeSlot(LocalTime.of(10, 0), LocalTime.of(11, 0))
-            val halfTenToElevenSlot = TimeSlot(LocalTime.of(11, 0), LocalTime.of(12, 0))
+            val tenToElevenSlot = TimeSlot(LocalTime.of(10, 0), LocalTime.of(10, 40))
+            val halfTenToElevenSlot = TimeSlot(LocalTime.of(10, 40), LocalTime.of(11, 20))
 
             assertThat(tenToElevenSlot.overlapsWith(halfTenToElevenSlot)).isFalse()
         }

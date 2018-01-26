@@ -15,8 +15,8 @@ The business goal is to sell tenant subscription plans to organizations: sport c
 **Booking Scheduling** is the core domain we’ll design it using DDD. Some of its requirements are:
 - A Court can not have multiple bookings for same day and time.
 - A Member can not have multiple bookings that overlap in time.
+- The minimum amount of time that a court can be booked is 40 minutes.
 - Booking can only be confirmed by the member that created it.
-- The minimum amount of time that a court can be booked is 30 minutes.
 - Member is notified via email after booking a court.
 - When a booking elapses without getting confirmed by a member, system notifies member.
 
@@ -34,3 +34,5 @@ For the purpose of this sample application, it is a simple CRUD of Locations and
 # References
 Docs and articles used to implement this project:
 - Entities, Value Objects, Aggregates and Roots. Jimmy Bogard. http://thepaulrayner.com/blog/aggregates-and-entities-in-domain-driven-design/
+- DDD Decoded - The Aggregate and Aggregate Root Explained, Mike Mogosanu http://blog.sapiensworks.com/post/2016/07/14/DDD-Aggregate-Decoded-1
+- DDD - Fictitious Aggregate Root https://stackoverflow.com/a/46947901

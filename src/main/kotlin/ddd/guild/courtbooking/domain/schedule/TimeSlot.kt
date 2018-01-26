@@ -9,7 +9,7 @@ class TimeSlot(
         val endTime: LocalTime
 ) : ValueObject {
 
-    private val minValidDuration = 30
+    private val minValidDuration = 40
 
     val duration: Long
         get() = Duration.between(startTime, endTime).toMinutes()

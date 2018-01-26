@@ -30,7 +30,7 @@ class ScheduleTest : Spek({
     it("can add new booking") {
         val schedule = Schedule(SCHEDULE_ID, LOCATION_ID, LocalDate.now())
         val startTime = LocalTime.of(10, 0)
-        val endTime = LocalTime.of(10, 30)
+        val endTime = LocalTime.of(10, 40)
 
         schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, startTime, endTime)
 
@@ -42,7 +42,7 @@ class ScheduleTest : Spek({
 
     it("can confirm booking") {
         val schedule = Schedule(SCHEDULE_ID, LOCATION_ID, LocalDate.now())
-        schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 0), LocalTime.of(10, 30))
+        schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 0), LocalTime.of(10, 40))
 
         schedule.confirmBooking(BOOKING_ID, MEMBER_ID)
 
@@ -51,27 +51,27 @@ class ScheduleTest : Spek({
 
     it("can not confirm booking of another member") {
         val schedule = Schedule(SCHEDULE_ID, LOCATION_ID, LocalDate.now())
-        schedule.addBooking(BOOKING_ID, "another-member-id", COURT_ID, LocalTime.of(10, 0), LocalTime.of(10, 30))
+        schedule.addBooking(BOOKING_ID, "another-member-id", COURT_ID, LocalTime.of(10, 0), LocalTime.of(10, 40))
 
         assertFailsWith<ScheduleExceptions.BookingBelongsToAnotherMember> {
             schedule.confirmBooking(BOOKING_ID, MEMBER_ID)
         }
     }
 
-    it("can not add a booking which duration is less than 30 minutes") {
+    it("can not add a booking which duration is less than 40 minutes") {
         val schedule = Schedule(SCHEDULE_ID, LOCATION_ID, LocalDate.now())
 
         assertFailsWith<ScheduleExceptions.InvalidDuration> {
-            schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 0), LocalTime.of(10, 29))
+            schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 0), LocalTime.of(10, 39))
         }
     }
 
     it("can not add a new booking that overlaps in time with an existing one") {
         val schedule = Schedule(SCHEDULE_ID, LOCATION_ID, LocalDate.now())
-        schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 0), LocalTime.of(11, 0))
+        schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 0), LocalTime.of(11, 20))
 
         assertFailsWith<ScheduleExceptions.BookingTimeConflict> {
-            schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 30), LocalTime.of(11, 0))
+            schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 40), LocalTime.of(11, 20))
         }
     }
 
