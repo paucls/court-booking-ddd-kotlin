@@ -24,7 +24,22 @@ class BookingTest : Spek({
         assertThat(booking.memberId).isEqualTo(MEMBER_ID)
         assertThat(booking.courtId).isEqualTo(COURT_ID)
         assertThat(booking.timeSlot).isEqualTo(timeSlot)
-        assertThat(booking.isConfirmed).isFalse()
+        assertThat(booking.status).isEqualTo(Booking.Status.CREATED)
+
+        assertThat(booking.getDomainEvents()).containsExactly(
+                ScheduleEvents.BookingCreated(BOOKING_ID)
+        )
+    }
+
+    it("can cancel booking") {
+        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, timeSlot)
+
+        booking.cancel(MEMBER_ID)
+
+        assertThat(booking.status).isEqualTo(Booking.Status.CANCELLED)
+        assertThat(booking.getDomainEvents().last()).isEqualTo(
+                ScheduleEvents.BookingCancelled(BOOKING_ID, MEMBER_ID)
+        )
     }
 
     it("can confirm booking") {
@@ -32,7 +47,10 @@ class BookingTest : Spek({
 
         booking.confirm(MEMBER_ID)
 
-        assertThat(booking.isConfirmed).isTrue()
+        assertThat(booking.status).isEqualTo(Booking.Status.CONFIRMED)
+        assertThat(booking.getDomainEvents().last()).isEqualTo(
+                ScheduleEvents.BookingConfirmed(BOOKING_ID, MEMBER_ID)
+        )
     }
 
     it("can not confirm booking of another member") {

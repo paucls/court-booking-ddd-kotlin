@@ -35,9 +35,6 @@ class ScheduleTest : Spek({
         schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, startTime, endTime)
 
         assertThat(schedule.bookings.size).isOne()
-        assertThat(schedule.bookings.first().memberId).isEqualTo(MEMBER_ID)
-        assertThat(schedule.bookings.first().courtId).isEqualTo(COURT_ID)
-        assertThat(schedule.bookings.first().isConfirmed).isFalse()
     }
 
     it("can confirm booking") {
@@ -46,7 +43,7 @@ class ScheduleTest : Spek({
 
         schedule.confirmBooking(BOOKING_ID, MEMBER_ID)
 
-        assertThat(schedule.bookings.first().isConfirmed).isTrue()
+        assertThat(schedule.bookings.first().status).isEqualTo(Booking.Status.CONFIRMED)
     }
 
     it("can not confirm booking of another member") {
