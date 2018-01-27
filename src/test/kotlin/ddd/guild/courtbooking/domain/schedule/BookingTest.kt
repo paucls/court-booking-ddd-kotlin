@@ -61,4 +61,22 @@ class BookingTest : Spek({
         }
     }
 
+    it("can update court") {
+        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, timeSlot)
+        val newCourtId = "new-court-id"
+
+        booking.updateCourt(newCourtId)
+
+        assertThat(booking.courtId).isEqualTo(newCourtId)
+    }
+
+    it("can update time") {
+        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, timeSlot)
+        val newTimeSlot = TimeSlot(LocalTime.of(11, 0), LocalTime.of(11, 40))
+
+        booking.updateTime(newTimeSlot)
+
+        assertThat(booking.timeSlot).isEqualTo(newTimeSlot)
+    }
+
 })
