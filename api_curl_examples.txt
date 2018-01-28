@@ -1,0 +1,11 @@
+// Create Booking
+curl -d '{"courtId":"court-id-1", "day":"2018-01-30", "startTime":"10:00", "endTime":"10:40"}' -H "Content-Type: application/json" -X POST http://localhost:8080/bookings
+
+// Cancel Booking
+curl -X POST http://localhost:8080/bookings/${bookingId}/cancel
+
+// Confirm Booking
+curl -X POST http://localhost:8080/bookings/${bookingId}/confirm
+
+// Get Bookings
+curl http://localhost:8080/bookings

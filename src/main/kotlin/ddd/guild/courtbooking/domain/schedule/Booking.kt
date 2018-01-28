@@ -1,6 +1,7 @@
 package ddd.guild.courtbooking.domain.schedule
 
 import ddd.guild.courtbooking.domain.DomainEntity
+import java.time.LocalDate
 import javax.persistence.Embedded
 import javax.persistence.Entity
 import javax.persistence.Id
@@ -12,6 +13,7 @@ class Booking(
         val id: String,
         val memberId: String,
         courtId: String,
+        val day: LocalDate,
         timeSlot: TimeSlot
 ) : DomainEntity {
 
@@ -24,7 +26,7 @@ class Booking(
         private set
 
     @Transient
-    private val domainEvents = mutableListOf<ScheduleEvents>()
+    private var domainEvents = mutableListOf<ScheduleEvents>()
 
     init {
         this.courtId = courtId
@@ -39,6 +41,8 @@ class Booking(
 
     fun cancel(memberId: String) {
         status = Status.CANCELLED
+
+        if (domainEvents == null) domainEvents = mutableListOf() // TODO solve issue with JPA not initializing list
         domainEvents.add(ScheduleEvents.BookingCancelled(id, memberId))
     }
 
@@ -46,7 +50,10 @@ class Booking(
         if (this.memberId != memberId) {
             throw ScheduleExceptions.BookingBelongsToAnotherMember()
         }
+
         status = Status.CONFIRMED
+
+        if (domainEvents == null) domainEvents = mutableListOf() // TODO solve issue with JPA not initializing list
         domainEvents.add(ScheduleEvents.BookingConfirmed(id, memberId))
     }
 

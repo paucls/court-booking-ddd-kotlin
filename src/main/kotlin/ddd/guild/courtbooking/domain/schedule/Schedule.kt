@@ -19,7 +19,7 @@ class Schedule(
 
         validateTimeDoNotConflict(timeSlot)
 
-        bookings.add(Booking(bookingId, memberId, courtId, timeSlot))
+        bookings.add(Booking(bookingId, memberId, courtId, day, timeSlot))
     }
 
     private fun validateTimeDoNotConflict(timeSlot: TimeSlot) {

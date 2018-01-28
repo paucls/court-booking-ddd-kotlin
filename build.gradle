@@ -56,6 +56,7 @@ dependencies {
     compile("org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}")
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.0"
     runtime("com.h2database:h2")
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("com.nhaarman:mockito-kotlin:1.5.0")

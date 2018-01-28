@@ -3,9 +3,11 @@ package ddd.guild.courtbooking.domain.schedule
 import ddd.guild.courtbooking.domain.ValueObject
 import java.time.Duration
 import java.time.LocalTime
+import javax.persistence.Embeddable
 import javax.persistence.Transient
 
-class TimeSlot(
+@Embeddable
+data class TimeSlot(
         val startTime: LocalTime,
         val endTime: LocalTime
 ) : ValueObject {
