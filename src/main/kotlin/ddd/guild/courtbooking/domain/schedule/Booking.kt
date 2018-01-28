@@ -1,11 +1,11 @@
 package ddd.guild.courtbooking.domain.schedule
 
 import ddd.guild.courtbooking.domain.DomainEntity
+import ddd.guild.courtbooking.domain.DomainEventPublisher
 import java.time.LocalDate
 import javax.persistence.Embedded
 import javax.persistence.Entity
 import javax.persistence.Id
-import javax.persistence.Transient
 
 @Entity
 class Booking(
@@ -25,25 +25,18 @@ class Booking(
     var status: Status
         private set
 
-    @Transient
-    private var domainEvents = mutableListOf<ScheduleEvents>()
-
     init {
         this.courtId = courtId
         this.timeSlot = timeSlot
         status = Status.CREATED
-        domainEvents.add(ScheduleEvents.BookingCreated(id))
-    }
 
-    fun getDomainEvents(): List<ScheduleEvents> {
-        return domainEvents.toList()
+        DomainEventPublisher.publish(ScheduleEvents.BookingCreated(id))
     }
 
     fun cancel(memberId: String) {
         status = Status.CANCELLED
 
-        if (domainEvents == null) domainEvents = mutableListOf() // TODO solve issue with JPA not initializing list
-        domainEvents.add(ScheduleEvents.BookingCancelled(id, memberId))
+        DomainEventPublisher.publish(ScheduleEvents.BookingCancelled(id, memberId))
     }
 
     fun confirm(memberId: String) {
@@ -53,8 +46,7 @@ class Booking(
 
         status = Status.CONFIRMED
 
-        if (domainEvents == null) domainEvents = mutableListOf() // TODO solve issue with JPA not initializing list
-        domainEvents.add(ScheduleEvents.BookingConfirmed(id, memberId))
+        DomainEventPublisher.publish(ScheduleEvents.BookingConfirmed(id, memberId))
     }
 
     fun updateCourt(newCourtId: String) {

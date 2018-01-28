@@ -1,5 +1,6 @@
 package ddd.guild.courtbooking.domain.schedule
 
+import ddd.guild.courtbooking.domain.DomainEventPublisher
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
@@ -28,7 +29,7 @@ class BookingTest : Spek({
         assertThat(booking.timeSlot).isEqualTo(timeSlot)
         assertThat(booking.status).isEqualTo(Booking.Status.CREATED)
 
-        assertThat(booking.getDomainEvents()).containsExactly(
+        assertThat(DomainEventPublisher.domainEvents).containsExactly(
                 ScheduleEvents.BookingCreated(BOOKING_ID)
         )
     }
@@ -39,7 +40,7 @@ class BookingTest : Spek({
         booking.cancel(MEMBER_ID)
 
         assertThat(booking.status).isEqualTo(Booking.Status.CANCELLED)
-        assertThat(booking.getDomainEvents().last()).isEqualTo(
+        assertThat(DomainEventPublisher.domainEvents.last()).isEqualTo(
                 ScheduleEvents.BookingCancelled(BOOKING_ID, MEMBER_ID)
         )
     }
@@ -50,7 +51,7 @@ class BookingTest : Spek({
         booking.confirm(MEMBER_ID)
 
         assertThat(booking.status).isEqualTo(Booking.Status.CONFIRMED)
-        assertThat(booking.getDomainEvents().last()).isEqualTo(
+        assertThat(DomainEventPublisher.domainEvents.last()).isEqualTo(
                 ScheduleEvents.BookingConfirmed(BOOKING_ID, MEMBER_ID)
         )
     }
