@@ -7,10 +7,10 @@ import ddd.guild.courtbooking.domain.shared.DomainEventPublisher
 import org.springframework.stereotype.Service
 
 @Service
-class HandleScheduleEvents : DomainEventHandler {
+class HandleScheduleEvents(domainEventPublisher: DomainEventPublisher) : DomainEventHandler {
 
     init {
-        DomainEventPublisher.register(this)
+        domainEventPublisher.register(this)
     }
 
     override fun handle(domainEvent: DomainEvent) {
