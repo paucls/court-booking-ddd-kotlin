@@ -20,6 +20,10 @@ class BookingTest : Spek({
     val day = LocalDate.of(2018, 1, 30)
     val timeSlot = TimeSlot(LocalTime.of(10, 0), LocalTime.of(10, 40))
 
+    beforeEachTest {
+        DomainEventPublisher.clear()
+    }
+
     it("can create booking") {
         val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, timeSlot)
 
