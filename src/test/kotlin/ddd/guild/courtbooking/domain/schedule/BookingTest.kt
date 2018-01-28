@@ -1,6 +1,6 @@
 package ddd.guild.courtbooking.domain.schedule
 
-import ddd.guild.courtbooking.domain.DomainEventPublisher
+import ddd.guild.courtbooking.domain.shared.DomainEventPublisher
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it

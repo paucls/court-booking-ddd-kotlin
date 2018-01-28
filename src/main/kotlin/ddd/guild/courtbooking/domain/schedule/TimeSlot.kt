@@ -1,6 +1,6 @@
 package ddd.guild.courtbooking.domain.schedule
 
-import ddd.guild.courtbooking.domain.ValueObject
+import ddd.guild.courtbooking.domain.shared.ValueObject
 import java.time.Duration
 import java.time.LocalTime
 import javax.persistence.Embeddable

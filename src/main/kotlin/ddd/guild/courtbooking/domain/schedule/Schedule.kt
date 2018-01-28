@@ -1,6 +1,6 @@
 package ddd.guild.courtbooking.domain.schedule
 
-import ddd.guild.courtbooking.domain.DomainEntity
+import ddd.guild.courtbooking.domain.shared.DomainEntity
 import java.time.LocalDate
 import java.time.LocalTime
 

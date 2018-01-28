@@ -1,6 +1,6 @@
 package ddd.guild.courtbooking.domain.schedule
 
-import ddd.guild.courtbooking.domain.DomainException
+import ddd.guild.courtbooking.domain.shared.DomainException
 
 class ScheduleExceptions {
     class BookingBelongsToAnotherMember : DomainException()

@@ -1,4 +1,4 @@
-package ddd.guild.courtbooking.domain
+package ddd.guild.courtbooking.domain.shared
 
 /**
  * A DDD Entity

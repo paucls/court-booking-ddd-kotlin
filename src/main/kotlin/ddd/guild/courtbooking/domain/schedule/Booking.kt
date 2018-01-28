@@ -1,7 +1,7 @@
 package ddd.guild.courtbooking.domain.schedule
 
-import ddd.guild.courtbooking.domain.DomainEntity
-import ddd.guild.courtbooking.domain.DomainEventPublisher
+import ddd.guild.courtbooking.domain.shared.DomainEntity
+import ddd.guild.courtbooking.domain.shared.DomainEventPublisher
 import java.time.LocalDate
 import javax.persistence.Embedded
 import javax.persistence.Entity
