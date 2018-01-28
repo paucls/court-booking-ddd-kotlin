@@ -1,17 +1,29 @@
 package ddd.guild.courtbooking.domain.schedule
 
 import ddd.guild.courtbooking.domain.DomainEntity
+import javax.persistence.Embedded
+import javax.persistence.Entity
+import javax.persistence.Id
+import javax.persistence.Transient
 
+@Entity
 class Booking(
+        @Id
         val id: String,
         val memberId: String,
         courtId: String,
         timeSlot: TimeSlot
 ) : DomainEntity {
 
-    var courtId: String private set
-    var timeSlot: TimeSlot private set
-    var status: Status private set
+    var courtId: String
+        private set
+    @Embedded
+    var timeSlot: TimeSlot
+        private set
+    var status: Status
+        private set
+
+    @Transient
     private val domainEvents = mutableListOf<ScheduleEvents>()
 
     init {

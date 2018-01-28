@@ -3,12 +3,14 @@ package ddd.guild.courtbooking.domain.schedule
 import ddd.guild.courtbooking.domain.ValueObject
 import java.time.Duration
 import java.time.LocalTime
+import javax.persistence.Transient
 
 class TimeSlot(
         val startTime: LocalTime,
         val endTime: LocalTime
 ) : ValueObject {
 
+    @Transient
     private val minValidDuration = 40
 
     val duration: Long
