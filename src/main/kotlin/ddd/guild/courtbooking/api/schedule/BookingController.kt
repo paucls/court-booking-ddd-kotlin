@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import java.time.LocalDateTime
 
 @Controller
 class BookingController(
@@ -28,7 +29,7 @@ class BookingController(
     @RequestMapping(value = ["/bookings"], method = [(RequestMethod.POST)])
     fun createBooking(@RequestBody dto: BookingDto): ResponseEntity<BookingDto> {
         val bookingId = bookingService.createBooking(
-                BookingCommands.CreateBooking(dto.courtId, dto.day, dto.startTime, dto.endTime, CURRENT_USER_ID))
+                BookingCommands.CreateBooking(dto.courtId, dto.start.toLocalDate(), dto.start.toLocalTime(), dto.end.toLocalTime(), CURRENT_USER_ID))
 
         // Should the Service return the Entity? Should a DTO be used for the API layer or the Entity?
         val booking = bookingRepository.findById(bookingId).get()
@@ -62,15 +63,19 @@ class BookingController(
     fun getAllBookings(): ResponseEntity<List<BookingDto>> {
         // Should be split completely queries from commands, and have a queries only repository
         // to be consumed by the API Controllers?
-        val bookings = bookingRepository.findAll().map(this::mapToDto)
+        val bookings = bookingRepository.findAll().map(this::mapToDto).sortedBy { it.start }
 
         return ResponseEntity(bookings, HttpStatus.OK)
     }
 
     private fun mapToDto(b: Booking): BookingDto {
-        return BookingDto(b.id, b.courtId, b.day,
-                b.timeSlot.startTime, b.timeSlot.endTime,
-                b.memberId, b.status.toString()
+        return BookingDto(
+                b.id,
+                b.courtId,
+                LocalDateTime.of(b.day, b.timeSlot.startTime),
+                LocalDateTime.of(b.day, b.timeSlot.endTime),
+                b.memberId,
+                b.status.toString()
         )
     }
 

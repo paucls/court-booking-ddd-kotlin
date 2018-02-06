@@ -1,14 +1,12 @@
 package ddd.guild.courtbooking.api.schedule
 
-import java.time.LocalDate
-import java.time.LocalTime
+import java.time.LocalDateTime
 
 data class BookingDto(
         val id: String?,
         val courtId: String,
-        val day: LocalDate,
-        val startTime: LocalTime,
-        val endTime: LocalTime,
+        val start: LocalDateTime,
+        val end: LocalDateTime,
         val memberId: String?,
         val status: String?
 )
