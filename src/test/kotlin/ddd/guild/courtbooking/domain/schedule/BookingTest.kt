@@ -4,8 +4,6 @@ import ddd.guild.courtbooking.domain.shared.DomainEventPublisher
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
 import java.time.LocalDate
 import java.time.LocalTime
 import kotlin.test.assertFailsWith
@@ -14,7 +12,6 @@ private const val BOOKING_ID = "booking-id"
 private const val MEMBER_ID = "member-id"
 private const val COURT_ID = "court-id"
 
-@RunWith(JUnitPlatform::class)
 class BookingTest : Spek({
 
     val day = LocalDate.of(2018, 1, 30)
