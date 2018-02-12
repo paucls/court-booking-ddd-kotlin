@@ -59,8 +59,8 @@ class BookingController(
      * Queries
      */
 
-    @RequestMapping(value = ["/bookings"], method = [(RequestMethod.GET)])
-    fun getAllBookings(): ResponseEntity<List<BookingDto>> {
+    @RequestMapping(value = ["/{clubId}/bookings"], method = [(RequestMethod.GET)])
+    fun getAllBookings(@PathVariable clubId: String): ResponseEntity<List<BookingDto>> {
         // Should be split completely queries from commands, and have a queries only repository
         // to be consumed by the API Controllers?
         val bookings = bookingRepository.findAll().map(this::mapToDto).sortedBy { it.start }
