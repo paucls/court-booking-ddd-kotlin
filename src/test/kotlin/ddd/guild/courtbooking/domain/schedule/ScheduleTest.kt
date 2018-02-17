@@ -28,45 +28,19 @@ class ScheduleTest : Spek({
     it("can add new booking") {
         val schedule = Schedule(SCHEDULE_ID, CLUB_ID, day)
         val startTime = LocalTime.of(10, 0)
-        val endTime = LocalTime.of(10, 40)
+        val endTime = LocalTime.of(10, 30)
 
         schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, startTime, endTime)
 
         assertThat(schedule.bookings.size).isOne()
     }
 
-    it("can confirm booking") {
-        val schedule = Schedule(SCHEDULE_ID, CLUB_ID, day)
-        schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 0), LocalTime.of(10, 40))
-
-        schedule.confirmBooking(BOOKING_ID, MEMBER_ID)
-
-        assertThat(schedule.bookings.first().status).isEqualTo(Booking.Status.CONFIRMED)
-    }
-
-    it("can not confirm booking of another member") {
-        val schedule = Schedule(SCHEDULE_ID, CLUB_ID, day)
-        schedule.addBooking(BOOKING_ID, "another-member-id", COURT_ID, LocalTime.of(10, 0), LocalTime.of(10, 40))
-
-        assertFailsWith<ScheduleExceptions.BookingBelongsToAnotherMember> {
-            schedule.confirmBooking(BOOKING_ID, MEMBER_ID)
-        }
-    }
-
-    it("can not add a booking which duration is less than 30 minutes") {
-        val schedule = Schedule(SCHEDULE_ID, CLUB_ID, day)
-
-        assertFailsWith<ScheduleExceptions.InvalidDuration> {
-            schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 0), LocalTime.of(10, 39))
-        }
-    }
-
     it("can not add a new booking that overlaps in time with an existing one") {
         val schedule = Schedule(SCHEDULE_ID, CLUB_ID, day)
-        schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 0), LocalTime.of(11, 20))
+        schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 0), LocalTime.of(11, 0))
 
         assertFailsWith<ScheduleExceptions.BookingTimeConflict> {
-            schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 40), LocalTime.of(11, 20))
+            schedule.addBooking(BOOKING_ID, MEMBER_ID, COURT_ID, LocalTime.of(10, 30), LocalTime.of(11, 0))
         }
     }
 

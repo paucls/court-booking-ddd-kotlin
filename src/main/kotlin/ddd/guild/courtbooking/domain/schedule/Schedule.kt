@@ -28,10 +28,4 @@ class Schedule(
         }
         if (overlaps) throw ScheduleExceptions.BookingTimeConflict()
     }
-
-    fun confirmBooking(bookingId: String, memberId: String) {
-        bookings
-                .find { it.id == bookingId }
-                ?.confirm(memberId)
-    }
 }
