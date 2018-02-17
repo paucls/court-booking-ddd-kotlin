@@ -1,5 +1,6 @@
-package ddd.guild.courtbooking.domain.schedule
+package ddd.guild.courtbooking.domain.booking
 
+import ddd.guild.courtbooking.domain.schedule.ScheduleExceptions
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe

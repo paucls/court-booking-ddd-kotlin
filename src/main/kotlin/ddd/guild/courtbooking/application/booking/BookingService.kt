@@ -1,7 +1,7 @@
-package ddd.guild.courtbooking.application.schedule
+package ddd.guild.courtbooking.application.booking
 
-import ddd.guild.courtbooking.domain.schedule.Booking
-import ddd.guild.courtbooking.domain.schedule.BookingTime
+import ddd.guild.courtbooking.domain.booking.Booking
+import ddd.guild.courtbooking.domain.booking.BookingTime
 import org.springframework.stereotype.Service
 
 @Service

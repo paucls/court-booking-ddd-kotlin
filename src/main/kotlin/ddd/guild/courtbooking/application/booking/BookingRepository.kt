@@ -1,6 +1,6 @@
-package ddd.guild.courtbooking.application.schedule
+package ddd.guild.courtbooking.application.booking
 
-import ddd.guild.courtbooking.domain.schedule.Booking
+import ddd.guild.courtbooking.domain.booking.Booking
 import org.springframework.data.repository.Repository
 import java.util.*
 

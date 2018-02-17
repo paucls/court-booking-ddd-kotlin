@@ -1,4 +1,4 @@
-package ddd.guild.courtbooking.application.schedule
+package ddd.guild.courtbooking.application.booking
 
 import java.time.LocalDate
 import java.time.LocalTime

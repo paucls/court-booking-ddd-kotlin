@@ -1,5 +1,7 @@
 package ddd.guild.courtbooking.domain.schedule
 
+import ddd.guild.courtbooking.domain.booking.Booking
+import ddd.guild.courtbooking.domain.booking.BookingTime
 import ddd.guild.courtbooking.domain.shared.DomainEntity
 import java.time.LocalDate
 import java.time.LocalTime

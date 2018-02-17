@@ -1,9 +1,9 @@
-package ddd.guild.courtbooking.api.schedule
+package ddd.guild.courtbooking.api.booking
 
-import ddd.guild.courtbooking.application.schedule.BookingCommands
-import ddd.guild.courtbooking.application.schedule.BookingRepository
-import ddd.guild.courtbooking.application.schedule.BookingService
-import ddd.guild.courtbooking.domain.schedule.Booking
+import ddd.guild.courtbooking.application.booking.BookingCommands
+import ddd.guild.courtbooking.application.booking.BookingRepository
+import ddd.guild.courtbooking.application.booking.BookingService
+import ddd.guild.courtbooking.domain.booking.Booking
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller

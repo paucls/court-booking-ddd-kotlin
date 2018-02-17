@@ -1,5 +1,6 @@
-package ddd.guild.courtbooking.domain.schedule
+package ddd.guild.courtbooking.domain.booking
 
+import ddd.guild.courtbooking.domain.schedule.ScheduleExceptions
 import ddd.guild.courtbooking.domain.shared.ValueObject
 import java.time.Duration
 import java.time.LocalTime

@@ -1,4 +1,4 @@
-package ddd.guild.courtbooking.api.courtschedules
+package ddd.guild.courtbooking.api.schedule
 
 import ddd.guild.courtbooking.api.courts.CourtDto
 import org.springframework.http.HttpStatus
