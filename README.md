@@ -15,7 +15,7 @@ The business goal is to sell tenant subscription plans to organizations: sport c
 **Booking Scheduling** is the core domain we’ll design it using DDD. Some of its requirements are:
 - A Court can not have multiple bookings for same day and time.
 - A Member can not have multiple bookings that overlap in time.
-- The minimum amount of time that a court can be booked is 40 minutes.
+- The minimum amount of time that a court can be booked is 30 minutes.
 - Booking can only be confirmed by the member that created it.
 - Member is notified via email after booking a court.
 - When a booking elapses without getting confirmed by a member, system notifies member.

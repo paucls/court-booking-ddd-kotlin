@@ -72,8 +72,8 @@ class BookingController(
         return BookingDto(
                 b.id,
                 b.courtId,
-                LocalDateTime.of(b.day, b.timeSlot.startTime),
-                LocalDateTime.of(b.day, b.timeSlot.endTime),
+                LocalDateTime.of(b.day, b.time.start),
+                LocalDateTime.of(b.day, b.time.end),
                 b.memberId,
                 b.status.toString()
         )

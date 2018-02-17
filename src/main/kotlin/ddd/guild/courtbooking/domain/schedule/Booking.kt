@@ -14,20 +14,20 @@ class Booking(
         val memberId: String,
         courtId: String,
         val day: LocalDate,
-        timeSlot: TimeSlot
+        time: BookingTime
 ) : DomainEntity {
 
     var courtId: String
         private set
     @Embedded
-    var timeSlot: TimeSlot
+    var time: BookingTime
         private set
     var status: Status
         private set
 
     init {
         this.courtId = courtId
-        this.timeSlot = timeSlot
+        this.time = time
         status = Status.CREATED
 
         DomainEventPublisher.publish(ScheduleEvents.BookingCreated(id))
@@ -55,10 +55,10 @@ class Booking(
         courtId = newCourtId
     }
 
-    fun updateTime(newTimeSlot: TimeSlot) {
-        if (newTimeSlot == timeSlot) return
+    fun updateTime(newTime: BookingTime) {
+        if (newTime == time) return
 
-        timeSlot = newTimeSlot
+        time = newTime
     }
 
     enum class Status {

@@ -15,19 +15,19 @@ private const val COURT_ID = "court-id"
 class BookingTest : Spek({
 
     val day = LocalDate.of(2018, 1, 30)
-    val timeSlot = TimeSlot(LocalTime.of(10, 0), LocalTime.of(10, 40))
+    val time = BookingTime(LocalTime.of(10, 0), LocalTime.of(10, 40))
 
     beforeEachTest {
         DomainEventPublisher.clear()
     }
 
     it("can create booking") {
-        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, timeSlot)
+        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, time)
 
         assertThat(booking.id).isEqualTo(BOOKING_ID)
         assertThat(booking.memberId).isEqualTo(MEMBER_ID)
         assertThat(booking.courtId).isEqualTo(COURT_ID)
-        assertThat(booking.timeSlot).isEqualTo(timeSlot)
+        assertThat(booking.time).isEqualTo(time)
         assertThat(booking.status).isEqualTo(Booking.Status.CREATED)
 
         assertThat(DomainEventPublisher.domainEvents).containsExactly(
@@ -36,7 +36,7 @@ class BookingTest : Spek({
     }
 
     it("can cancel booking") {
-        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, timeSlot)
+        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, time)
 
         booking.cancel(MEMBER_ID)
 
@@ -47,7 +47,7 @@ class BookingTest : Spek({
     }
 
     it("can confirm booking") {
-        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, timeSlot)
+        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, time)
 
         booking.confirm(MEMBER_ID)
 
@@ -58,7 +58,7 @@ class BookingTest : Spek({
     }
 
     it("can not confirm booking of another member") {
-        val booking = Booking(BOOKING_ID, "another-member-id", COURT_ID, day, timeSlot)
+        val booking = Booking(BOOKING_ID, "another-member-id", COURT_ID, day, time)
 
         assertFailsWith<ScheduleExceptions.BookingBelongsToAnotherMember> {
             booking.confirm(MEMBER_ID)
@@ -66,7 +66,7 @@ class BookingTest : Spek({
     }
 
     it("can update court") {
-        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, timeSlot)
+        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, time)
         val newCourtId = "new-court-id"
 
         booking.updateCourt(newCourtId)
@@ -75,12 +75,12 @@ class BookingTest : Spek({
     }
 
     it("can update time") {
-        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, timeSlot)
-        val newTimeSlot = TimeSlot(LocalTime.of(11, 0), LocalTime.of(11, 40))
+        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, time)
+        val newTime = BookingTime(LocalTime.of(11, 0), LocalTime.of(11, 40))
 
-        booking.updateTime(newTimeSlot)
+        booking.updateTime(newTime)
 
-        assertThat(booking.timeSlot).isEqualTo(newTimeSlot)
+        assertThat(booking.time).isEqualTo(newTime)
     }
 
 })

@@ -9,22 +9,22 @@ import java.time.LocalTime
  */
 class Schedule(
         val id: String,
-        val locationId: String,
+        val clubId: String,
         val day: LocalDate
 ) : DomainEntity {
     val bookings = mutableListOf<Booking>()
 
     fun addBooking(bookingId: String, memberId: String, courtId: String, startTime: LocalTime, endTime: LocalTime) {
-        val timeSlot = TimeSlot(startTime, endTime)
+        val bookingTime = BookingTime(startTime, endTime)
 
-        validateTimeDoNotConflict(timeSlot)
+        validateTimeDoNotConflict(bookingTime)
 
-        bookings.add(Booking(bookingId, memberId, courtId, day, timeSlot))
+        bookings.add(Booking(bookingId, memberId, courtId, day, bookingTime))
     }
 
-    private fun validateTimeDoNotConflict(timeSlot: TimeSlot) {
+    private fun validateTimeDoNotConflict(time: BookingTime) {
         val overlaps = bookings.any {
-            it.timeSlot.overlapsWith(timeSlot)
+            it.time.overlapsWith(time)
         }
         if (overlaps) throw ScheduleExceptions.BookingTimeConflict()
     }
