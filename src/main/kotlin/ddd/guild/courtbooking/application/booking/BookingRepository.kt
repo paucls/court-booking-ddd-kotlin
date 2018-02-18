@@ -10,7 +10,7 @@ interface BookingRepository : Repository<Booking, String> {
     /**
      * Queries
      */
-    fun findAll(): List<Booking>
+    fun findAllByClubId(clubId: String): List<Booking>
 
     fun findById(id: String): Optional<Booking>
 }

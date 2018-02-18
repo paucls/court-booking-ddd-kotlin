@@ -10,8 +10,9 @@ import java.time.LocalTime
 import kotlin.test.assertFailsWith
 
 private const val BOOKING_ID = "booking-id"
-private const val MEMBER_ID = "member-id"
+private const val CLUB_ID = "club-id"
 private const val COURT_ID = "court-id"
+private const val MEMBER_ID = "member-id"
 
 class BookingTest : Spek({
 
@@ -23,7 +24,7 @@ class BookingTest : Spek({
     }
 
     it("can make booking") {
-        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, time)
+        val booking = Booking(BOOKING_ID, CLUB_ID, MEMBER_ID, COURT_ID, day, time)
 
         assertThat(booking.id).isEqualTo(BOOKING_ID)
         assertThat(booking.memberId).isEqualTo(MEMBER_ID)
@@ -38,12 +39,12 @@ class BookingTest : Spek({
 
     it("can not make a booking which duration is less than 30 minutes") {
         assertFailsWith<BookingExceptions.InvalidDuration> {
-            Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, TimeRange(LocalTime.of(10, 0), LocalTime.of(10, 29)))
+            Booking(BOOKING_ID, CLUB_ID, MEMBER_ID, COURT_ID, day, TimeRange(LocalTime.of(10, 0), LocalTime.of(10, 29)))
         }
     }
 
     it("can cancel booking") {
-        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, time)
+        val booking = Booking(BOOKING_ID, CLUB_ID, MEMBER_ID, COURT_ID, day, time)
 
         booking.cancel(MEMBER_ID)
 
@@ -54,7 +55,7 @@ class BookingTest : Spek({
     }
 
     it("can confirm booking") {
-        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, time)
+        val booking = Booking(BOOKING_ID, CLUB_ID, MEMBER_ID, COURT_ID, day, time)
 
         booking.confirm(MEMBER_ID)
 
@@ -65,7 +66,7 @@ class BookingTest : Spek({
     }
 
     it("can not confirm booking of another member") {
-        val booking = Booking(BOOKING_ID, "another-member-id", COURT_ID, day, time)
+        val booking = Booking(BOOKING_ID, CLUB_ID, "another-member-id", COURT_ID, day, time)
 
         assertFailsWith<BookingExceptions.BookingBelongsToAnotherMember> {
             booking.confirm(MEMBER_ID)
@@ -73,7 +74,7 @@ class BookingTest : Spek({
     }
 
     it("can update court") {
-        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, time)
+        val booking = Booking(BOOKING_ID, CLUB_ID, MEMBER_ID, COURT_ID, day, time)
         val newCourtId = "new-court-id"
 
         booking.updateCourt(newCourtId)
@@ -82,7 +83,7 @@ class BookingTest : Spek({
     }
 
     it("can update time") {
-        val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, time)
+        val booking = Booking(BOOKING_ID, CLUB_ID, MEMBER_ID, COURT_ID, day, time)
         val newTime = TimeRange(LocalTime.of(11, 0), LocalTime.of(11, 40))
 
         booking.updateTime(newTime)

@@ -65,7 +65,9 @@ class BookingController(
     fun getAllBookings(@PathVariable clubId: String): ResponseEntity<List<BookingDto>> {
         // Should be split completely queries from commands, and have a queries only repository
         // to be consumed by the API Controllers?
-        val bookings = bookingRepository.findAll().map(this::mapToDto).sortedBy { it.start }
+        val bookings = bookingRepository
+                .findAllByClubId(clubId)
+                .map(this::mapToDto).sortedBy { it.start }
 
         return ResponseEntity(bookings, HttpStatus.OK)
     }

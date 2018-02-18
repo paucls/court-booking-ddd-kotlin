@@ -16,7 +16,7 @@ class BookingService(val bookingRepository: BookingRepository, val scheduleRepos
         val schedule = getScheduleForDay(c.clubId, c.courtId, c.day)
         val time = schedule.allocateTimeForBooking(bookingId, c.startTime, c.endTime)
 
-        val booking = Booking(bookingId, c.memberId, c.courtId, c.day, time)
+        val booking = Booking(bookingId, c.clubId, c.memberId, c.courtId, c.day, time)
 
         scheduleRepository.save(schedule)
         bookingRepository.save(booking)

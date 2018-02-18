@@ -13,6 +13,7 @@ import javax.persistence.Transient
 class Booking(
         @Id
         val id: String,
+        val clubId: String,
         val memberId: String,
         courtId: String,
         val day: LocalDate,
