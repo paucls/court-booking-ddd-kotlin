@@ -26,13 +26,15 @@ class BookingController(
      * Commands
      */
 
-    @RequestMapping(value = ["/bookings"], method = [(RequestMethod.POST)])
-    fun createBooking(@RequestBody dto: BookingDto): ResponseEntity<BookingDto> {
-        val bookingId = bookingService.createBooking(
-                BookingCommands.CreateBooking(dto.courtId, dto.start.toLocalDate(), dto.start.toLocalTime(), dto.end.toLocalTime(), CURRENT_USER_ID))
-
-        // Should the Service return the Entity? Should a DTO be used for the API layer or the Entity?
-        val booking = bookingRepository.findById(bookingId).get()
+    @RequestMapping(value = ["/{clubId}/bookings"], method = [(RequestMethod.POST)])
+    fun makeBooking(@PathVariable clubId: String, @RequestBody dto: BookingDto): ResponseEntity<BookingDto> {
+        val booking = bookingService.makeBooking(BookingCommands.MakeBooking(
+                clubId,
+                dto.courtId,
+                dto.start.toLocalDate(),
+                dto.start.toLocalTime(),
+                dto.end.toLocalTime(),
+                CURRENT_USER_ID))
 
         return ResponseEntity(mapToDto(booking), HttpStatus.CREATED)
     }

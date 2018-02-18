@@ -1,33 +1,40 @@
 package ddd.guild.courtbooking.domain.schedule
 
-import ddd.guild.courtbooking.domain.booking.Booking
-import ddd.guild.courtbooking.domain.booking.BookingTime
 import ddd.guild.courtbooking.domain.shared.DomainEntity
 import java.time.LocalDate
 import java.time.LocalTime
+import java.util.*
+import javax.persistence.Entity
+import javax.persistence.Id
 
 /**
  * Aggregate Root
  */
+@Entity
 class Schedule(
+        @Id
         val id: String,
         val clubId: String,
+        val courtId: String,
         val day: LocalDate
 ) : DomainEntity {
-    val bookings = mutableListOf<Booking>()
 
-    fun addBooking(bookingId: String, memberId: String, courtId: String, startTime: LocalTime, endTime: LocalTime) {
-        val bookingTime = BookingTime(startTime, endTime)
+    val entries = mutableListOf<Entry>()
 
-        validateTimeDoNotConflict(bookingTime)
+    fun allocateTimeForBooking(bookingId: String, startTime: LocalTime, endTime: LocalTime): TimeRange {
+        val time = TimeRange(startTime, endTime)
 
-        bookings.add(Booking(bookingId, memberId, courtId, day, bookingTime))
+        validateTimeDoNotConflict(time)
+
+        entries.add(Entry(id = UUID.randomUUID().toString(), time = time, description = "Booked"))
+
+        return time
     }
 
-    private fun validateTimeDoNotConflict(time: BookingTime) {
-        val overlaps = bookings.any {
+    private fun validateTimeDoNotConflict(time: TimeRange) {
+        val overlaps = entries.any {
             it.time.overlapsWith(time)
         }
-        if (overlaps) throw ScheduleExceptions.BookingTimeConflict()
+        if (overlaps) throw ScheduleExceptions.TimeConflict()
     }
 }

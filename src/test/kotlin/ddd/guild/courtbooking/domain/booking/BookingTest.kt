@@ -1,7 +1,6 @@
 package ddd.guild.courtbooking.domain.booking
 
-import ddd.guild.courtbooking.domain.schedule.ScheduleEvents
-import ddd.guild.courtbooking.domain.schedule.ScheduleExceptions
+import ddd.guild.courtbooking.domain.schedule.TimeRange
 import ddd.guild.courtbooking.domain.shared.DomainEventPublisher
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
@@ -17,13 +16,13 @@ private const val COURT_ID = "court-id"
 class BookingTest : Spek({
 
     val day = LocalDate.of(2018, 1, 30)
-    val time = BookingTime(LocalTime.of(10, 0), LocalTime.of(10, 40))
+    val time = TimeRange(LocalTime.of(10, 0), LocalTime.of(10, 40))
 
     beforeEachTest {
         DomainEventPublisher.clear()
     }
 
-    it("can create booking") {
+    it("can make booking") {
         val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, time)
 
         assertThat(booking.id).isEqualTo(BOOKING_ID)
@@ -33,8 +32,14 @@ class BookingTest : Spek({
         assertThat(booking.status).isEqualTo(Booking.Status.CREATED)
 
         assertThat(DomainEventPublisher.domainEvents).containsExactly(
-                ScheduleEvents.BookingCreated(BOOKING_ID)
+                BookingEvents.BookingCreated(BOOKING_ID)
         )
+    }
+
+    it("can not make a booking which duration is less than 30 minutes") {
+        assertFailsWith<BookingExceptions.InvalidDuration> {
+            Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, TimeRange(LocalTime.of(10, 0), LocalTime.of(10, 29)))
+        }
     }
 
     it("can cancel booking") {
@@ -44,7 +49,7 @@ class BookingTest : Spek({
 
         assertThat(booking.status).isEqualTo(Booking.Status.CANCELLED)
         assertThat(DomainEventPublisher.domainEvents.last()).isEqualTo(
-                ScheduleEvents.BookingCancelled(BOOKING_ID, MEMBER_ID)
+                BookingEvents.BookingCancelled(BOOKING_ID, MEMBER_ID)
         )
     }
 
@@ -55,14 +60,14 @@ class BookingTest : Spek({
 
         assertThat(booking.status).isEqualTo(Booking.Status.CONFIRMED)
         assertThat(DomainEventPublisher.domainEvents.last()).isEqualTo(
-                ScheduleEvents.BookingConfirmed(BOOKING_ID, MEMBER_ID)
+                BookingEvents.BookingConfirmed(BOOKING_ID, MEMBER_ID)
         )
     }
 
     it("can not confirm booking of another member") {
         val booking = Booking(BOOKING_ID, "another-member-id", COURT_ID, day, time)
 
-        assertFailsWith<ScheduleExceptions.BookingBelongsToAnotherMember> {
+        assertFailsWith<BookingExceptions.BookingBelongsToAnotherMember> {
             booking.confirm(MEMBER_ID)
         }
     }
@@ -78,7 +83,7 @@ class BookingTest : Spek({
 
     it("can update time") {
         val booking = Booking(BOOKING_ID, MEMBER_ID, COURT_ID, day, time)
-        val newTime = BookingTime(LocalTime.of(11, 0), LocalTime.of(11, 40))
+        val newTime = TimeRange(LocalTime.of(11, 0), LocalTime.of(11, 40))
 
         booking.updateTime(newTime)
 

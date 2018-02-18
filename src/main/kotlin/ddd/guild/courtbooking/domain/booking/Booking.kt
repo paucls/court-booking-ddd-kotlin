@@ -1,13 +1,13 @@
 package ddd.guild.courtbooking.domain.booking
 
-import ddd.guild.courtbooking.domain.schedule.ScheduleEvents
-import ddd.guild.courtbooking.domain.schedule.ScheduleExceptions
+import ddd.guild.courtbooking.domain.schedule.TimeRange
 import ddd.guild.courtbooking.domain.shared.DomainEntity
 import ddd.guild.courtbooking.domain.shared.DomainEventPublisher
 import java.time.LocalDate
 import javax.persistence.Embedded
 import javax.persistence.Entity
 import javax.persistence.Id
+import javax.persistence.Transient
 
 @Entity
 class Booking(
@@ -16,39 +16,44 @@ class Booking(
         val memberId: String,
         courtId: String,
         val day: LocalDate,
-        time: BookingTime
+        time: TimeRange
 ) : DomainEntity {
 
     var courtId: String
         private set
     @Embedded
-    var time: BookingTime
+    var time: TimeRange
         private set
     var status: Status
         private set
 
+    @Transient
+    private val minValidDuration = 30
+
     init {
+        if (time.durationInMinutes < minValidDuration) throw BookingExceptions.InvalidDuration()
+
         this.courtId = courtId
         this.time = time
         status = Status.CREATED
 
-        DomainEventPublisher.publish(ScheduleEvents.BookingCreated(id))
+        DomainEventPublisher.publish(BookingEvents.BookingCreated(id))
     }
 
     fun cancel(memberId: String) {
         status = Status.CANCELLED
 
-        DomainEventPublisher.publish(ScheduleEvents.BookingCancelled(id, memberId))
+        DomainEventPublisher.publish(BookingEvents.BookingCancelled(id, memberId))
     }
 
     fun confirm(memberId: String) {
         if (this.memberId != memberId) {
-            throw ScheduleExceptions.BookingBelongsToAnotherMember()
+            throw BookingExceptions.BookingBelongsToAnotherMember()
         }
 
         status = Status.CONFIRMED
 
-        DomainEventPublisher.publish(ScheduleEvents.BookingConfirmed(id, memberId))
+        DomainEventPublisher.publish(BookingEvents.BookingConfirmed(id, memberId))
     }
 
     fun updateCourt(newCourtId: String) {
@@ -57,7 +62,7 @@ class Booking(
         courtId = newCourtId
     }
 
-    fun updateTime(newTime: BookingTime) {
+    fun updateTime(newTime: TimeRange) {
         if (newTime == time) return
 
         time = newTime
