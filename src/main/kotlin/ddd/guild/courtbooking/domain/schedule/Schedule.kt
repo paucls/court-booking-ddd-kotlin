@@ -4,8 +4,7 @@ import ddd.guild.courtbooking.domain.shared.DomainEntity
 import java.time.LocalDate
 import java.time.LocalTime
 import java.util.*
-import javax.persistence.Entity
-import javax.persistence.Id
+import javax.persistence.*
 
 /**
  * Aggregate Root
@@ -19,6 +18,8 @@ class Schedule(
         val day: LocalDate
 ) : DomainEntity {
 
+    @OneToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL], orphanRemoval = true)
+    @JoinColumn(name = "schedule_id")
     val entries = mutableListOf<Entry>()
 
     fun allocateTimeForBooking(bookingId: String, startTime: LocalTime, endTime: LocalTime): TimeRange {

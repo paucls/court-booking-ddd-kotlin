@@ -1,17 +1,10 @@
 // Make Booking
-curl -d '{"courtId":"court-id-1", "start":"2018-01-28T09:00", "end":"2018-01-30T09:40"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
-curl -d '{"courtId":"court-id-1", "start":"2018-01-30T10:00", "end":"2018-01-30T10:40"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
-curl -d '{"courtId":"court-id-1", "start":"2018-01-30T12:00", "end":"2018-01-30T12:40"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
-curl -d '{"courtId":"court-id-1", "start":"2018-01-30T11:20", "end":"2018-01-30T12:00"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
+curl -d '{"courtId":"court-id-1", "start":"2018-01-28T09:00", "end":"2018-01-30T09:30"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
+curl -d '{"courtId":"court-id-1", "start":"2018-01-30T10:00", "end":"2018-01-30T10:30"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
+curl -d '{"courtId":"court-id-1", "start":"2018-01-30T12:00", "end":"2018-01-30T12:30"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
+curl -d '{"courtId":"court-id-1", "start":"2018-01-30T11:00", "end":"2018-01-30T12:00"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
 
 -----
-
-// Create Booking
-curl -d '{"courtId":"court-id-1", "start":"2018-01-28T09:00", "end":"2018-01-30T09:40"}' -H "Content-Type: application/json" -X POST http://localhost:8080/bookings
-curl -d '{"courtId":"court-id-1", "start":"2018-01-30T10:00", "end":"2018-01-30T10:40"}' -H "Content-Type: application/json" -X POST http://localhost:8080/bookings
-curl -d '{"courtId":"court-id-1", "start":"2018-01-30T11:20", "end":"2018-01-30T12:00"}' -H "Content-Type: application/json" -X POST http://localhost:8080/bookings
-curl -d '{"courtId":"court-id-1", "start":"2018-01-30T12:00", "end":"2018-01-30T12:40"}' -H "Content-Type: application/json" -X POST http://localhost:8080/bookings
-
 // Cancel Booking
 curl -X POST http://localhost:8080/bookings/${bookingId}/cancel
 
@@ -20,3 +13,10 @@ curl -X POST http://localhost:8080/bookings/${bookingId}/confirm
 
 // Get Bookings
 curl http://localhost:8080/bookings
+
+
+------
+
+SELECT * FROM BOOKING ;
+SELECT * FROM SCHEDULE;
+SELECT * FROM ENTRY;
