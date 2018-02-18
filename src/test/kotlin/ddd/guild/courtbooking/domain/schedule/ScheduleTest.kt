@@ -9,16 +9,16 @@ import kotlin.test.assertFailsWith
 
 private const val SCHEDULE_ID = "schedule-id"
 private const val CLUB_ID = "club-id"
+private const val COURT_ID = "court-id"
 private const val BOOKING_ID = "booking-id"
 private const val MEMBER_ID = "member-id"
-private const val COURT_ID = "court-id"
 
 class ScheduleTest : Spek({
 
     val day = LocalDate.of(2018, 1, 30)
 
     it("can create schedule for a day") {
-        val schedule = Schedule(SCHEDULE_ID, CLUB_ID, day)
+        val schedule = Schedule(SCHEDULE_ID, CLUB_ID, COURT_ID, day)
 
         assertThat(schedule.id).isEqualTo(SCHEDULE_ID)
         assertThat(schedule.clubId).isEqualTo(CLUB_ID)

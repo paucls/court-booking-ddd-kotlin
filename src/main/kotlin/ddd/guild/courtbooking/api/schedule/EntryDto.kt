@@ -2,7 +2,7 @@ package ddd.guild.courtbooking.api.schedule
 
 import java.time.LocalDateTime
 
-class EventDto(
+class EntryDto(
         val id: String,
         val start: LocalDateTime,
         val end: LocalDateTime,

@@ -6,5 +6,5 @@ import java.time.LocalDate
 class CourtScheduleDto(
         val day: LocalDate,
         val court: CourtDto,
-        val events: List<EventDto>
+        val entries: List<EntryDto>
 )

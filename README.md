@@ -37,3 +37,4 @@ Docs and articles used to implement this project:
 - DDD Decoded - The Aggregate and Aggregate Root Explained, Mike Mogosanu http://blog.sapiensworks.com/post/2016/07/14/DDD-Aggregate-Decoded-1
 - DDD - Fictitious Aggregate Root https://stackoverflow.com/a/46947901
 - Client IDs in Multitenant RESTful API URIs, Jack Jones http://uberjack.com/2013/08/client-ids-in-multitenant-restful-api-uris/
+- DDD Decoded - Application Services Explained, Mike Mogosanu http://blog.sapiensworks.com/post/2016/08/19/DDD-Application-Services-Explained
