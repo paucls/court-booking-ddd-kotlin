@@ -38,3 +38,4 @@ Docs and articles used to implement this project:
 - DDD - Fictitious Aggregate Root https://stackoverflow.com/a/46947901
 - Client IDs in Multitenant RESTful API URIs, Jack Jones http://uberjack.com/2013/08/client-ids-in-multitenant-restful-api-uris/
 - DDD Decoded - Application Services Explained, Mike Mogosanu http://blog.sapiensworks.com/post/2016/08/19/DDD-Application-Services-Explained
+- Aggregate Root including tremendous number of children. https://stackoverflow.com/questions/42052434/aggregate-root-including-tremendous-number-of-children

@@ -1,8 +1,11 @@
 // Make Booking
-curl -d '{"courtId":"court-id-1", "start":"2018-01-28T09:00", "end":"2018-01-30T09:30"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
-curl -d '{"courtId":"court-id-1", "start":"2018-01-30T10:00", "end":"2018-01-30T10:30"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
-curl -d '{"courtId":"court-id-1", "start":"2018-01-30T12:00", "end":"2018-01-30T12:30"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
-curl -d '{"courtId":"court-id-1", "start":"2018-01-30T11:00", "end":"2018-01-30T12:00"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
+curl -d '{"courtId":"court-1", "start":"2018-02-20T09:00", "end":"2018-02-20T09:30"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
+curl -d '{"courtId":"court-1", "start":"2018-02-22T10:00", "end":"2018-02-22T10:30"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
+curl -d '{"courtId":"court-1", "start":"2018-02-22T12:00", "end":"2018-02-22T12:30"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
+curl -d '{"courtId":"court-1", "start":"2018-02-22T11:00", "end":"2018-02-22T12:00"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
+curl -d '{"courtId":"court-1", "start":"2018-02-23T12:00", "end":"2018-02-23T12:30"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
+curl -d '{"courtId":"court-2", "start":"2018-02-23T11:00", "end":"2018-02-23T12:00"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
+curl -d '{"courtId":"court-3", "start":"2018-02-23T13:00", "end":"2018-02-23T13:30"}' -H "Content-Type: application/json" -X POST http://localhost:8080/club-1/bookings
 
 -----
 // Cancel Booking
@@ -17,6 +20,6 @@ curl http://localhost:8080/bookings
 
 ------
 
-SELECT * FROM BOOKING ;
+SELECT * FROM BOOKING;
 SELECT * FROM SCHEDULE;
 SELECT * FROM ENTRY;
